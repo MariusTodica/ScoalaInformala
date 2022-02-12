@@ -19,8 +19,7 @@ def impartire(a: int, b: int) -> str:
         while b == 0:
             b = int(input("Aloca o noua valoare: "))
     if a % b == 0:
-
-    return f"{a} / {b} = {a / b}"
+        return f"{a} / {b} = {a / b}"
 
 
 def operator() -> str:
