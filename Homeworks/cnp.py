@@ -137,7 +137,7 @@ def cnp():
             z = 0
         else:
             z = 1
-
+            
     validare = [2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9]
     suma = 0
     t = f"{s}{aa}{ll}{zz}{reg}{nnn}"
