@@ -138,19 +138,19 @@ def cnp():
         else:
             z = 1
 
-
-    cod = s + int(aa) + int(ll) + int(zz) + reg + int(nnn)
+    validare = [2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9]
     suma = 0
-    p = 0
     t = f"{s}{aa}{ll}{zz}{reg}{nnn}"
-    for i in t:
-        suma = suma + int(i) * int(cod)
-        p += 1
+    y = list(t)
+    for i in y:
+        for j in validare:
+            if i == j:
+                suma += int(y[i]) * validare[j]
     rest = suma % 11
     if rest == 10:
-        c = "1"
+        c = 1
     else:
-        c = str(rest)
+        c = rest
     cnp = f"{s}{aa}{ll}{zz}{reg}{nnn}{c}"
     print(f"CNP-ul rezultat este: {cnp}")
 
