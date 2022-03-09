@@ -1,11 +1,6 @@
-# cream fisierele
-# cream sa bage de la tastatura: task, data, nume, categorie(sa exista o singura data categoria)
-# sa afisam categoriile disponibile
-
-
 import csv
-# import pandas as pd
-global all_categories, all_items
+import datetime
+global all_items, all_categories, option, options
 
 
 def add_category():
@@ -29,15 +24,16 @@ def add_category():
     print(f'\n {category_list}')
 
 
-def add_list():
+def add_tasks():
     active = True
     global all_items
     all_items = []
     items = []
     while active:
         task = input("Introdu un task: ")
-        limita = input("Introdu o data limita (ex: 02.10.2020 21:30): ")
-        responsabil = input("Introdu un responsabil (ex: ex: Ion Vasile): ")
+        limita = input("Introdu o data limita (ex: 02.10.2020): ")
+        datetime.datetime.strptime(limita, "%d.%m.%Y")
+        responsabil = input("Introdu un responsabil (ex: Ion Vasile): ")
         category = input("Introdu o categorie: ")
 
         with open("lista.csv", "r") as file:
@@ -70,67 +66,57 @@ def add_list():
             continue
 
 
-def listare_date():
-    print(all_items)
+def meniu():
+    print("""Meniu: 
+        1. Listare date
+        2. Sortare
+        3. Filtrare date
+        4. Adaugare task nou
+        5. Editare
+        6. Stergere""")
 
 
-def options():
-    # print(f"Meniu:\n1. Listare date\n"
-    #                 "2. Sortare\n"
-    #                 "3. Filtrare date\n"
-    #                 "4. Adaugare task nou\n"
-    #                 "5. Editare task\n"
-    #                 "6. Stergere task\n")
-    print("Meniu: ")
-    option = {
-        1: 'Listare date\n',
-        2: 'Sortare\n',
-        3: 'Filtrare date\n',
-        4: 'Adaugare task nou\n',
-        5: 'Editare\n',
-        6: 'Stergere\n'
+def choice(meniu):
+    choices = {
+        1: 'Listare date',
+        2: 'Sortare',
+        3: 'Filtrare date',
+        4: 'Adaugare task nou',
+        5: 'Editare',
+        6: 'Stergere'
     }
 
-    option = []
-    option = int(input("Introduceti ce optiune doriti: "))
     if option in range(7):
+        print(f"Optiunea aleasa: {choices[option]}")
         return True
     else:
-        return options()
+        return meniu()
 
 
 def list_date():
-    print("Ati ales optiune 1")
-    category_sort = []
+    global all_items
+    print("Ati ales optiunea 1")
+    categorie_sort = []
     for item in all_items:
         aux = item[3]
-        category_sort.append(aux)
-    category_sort.sort()
-    print(category_sort)
+        categorie_sort.append(aux)
+    categorie_sort.sort()
+    print(categorie_sort)
 
 
 def sortare_date():
-    # options = {1: "sortare ascendentă task",
-    #            2: "sortare descendentă task",
-    #            3: "sortare ascendentă data",
-    #            4: "sortare descendentă data",
-    #            5: "sortare ascendentă persoana responsabilă",
-    #            6: "sortare descendentă persoană responsabilă",
-    #            7: "sortare ascendentă categorie",
-    #            8: "sortare descendentă categorie"}
+    print(f"""Meniu: 1. Sortare ascendentă task
+       2. Sortare descendentă task
+       3. Sortare ascendentă data
+       4. Sortare descendentă data
+       5. Sortare ascendentă persoana responsabilă
+       6. Sortare descendentă persoană responsabilă
+       7. Sortare ascendentă categorie
+       8. Sortare descendentă categorie""")
 
-    print(f"Meniu:\n1. Sortare ascendentă task\n"
-                   "2. Sortare descendentă task\n"
-                   "3. Sortare ascendentă data\n"
-                   "4. Sortare descendentă data\n"
-                   "5. Sortare ascendentă persoana responsabilă\n"
-                   "6. Sortare descendentă persoană responsabilă\n"
-                   "7. Sortare ascendentă categorie\n"
-                   "8. Sortare descendentă categorie\n")
-
-    option = int(input("Introduceti ce optiune doriti: "))
-    print(f"Ati ales optiunea: {option}")
-    if option == 1:
+    opt = int(input("Introduceti ce optiune doriti: "))
+    print(f"Ati ales optiunea: {opt}")
+    if opt == 1:
         task_sort = []
         for item in all_items:
             aux = item[0]
@@ -138,7 +124,7 @@ def sortare_date():
         task_sort.sort()
         print(task_sort)
 
-    elif option == 2:
+    elif opt == 2:
         task_sort = []
         for item in all_items:
             aux = item[0]
@@ -146,7 +132,7 @@ def sortare_date():
         task_sort.sort()
         print(task_sort[::-1])
 
-    elif option == 3:
+    elif opt == 3:
         limita_sort = []
         for item in all_items:
             aux = item[1]
@@ -154,7 +140,7 @@ def sortare_date():
         limita_sort.sort()
         print(limita_sort)
 
-    elif option == 4:
+    elif opt == 4:
         limita_sort = []
         for item in all_items:
             aux = item[1]
@@ -162,7 +148,7 @@ def sortare_date():
         limita_sort.sort()
         print(limita_sort[::-1])
 
-    elif option == 5:
+    elif opt == 5:
         responsabil_sort = []
         for item in all_items:
             aux = item[2]
@@ -170,7 +156,7 @@ def sortare_date():
         responsabil_sort.sort()
         print(responsabil_sort)
 
-    elif option == 6:
+    elif opt == 6:
         responsabil_sort = []
         for item in all_items:
             aux = item[2]
@@ -178,7 +164,7 @@ def sortare_date():
         responsabil_sort.sort()
         print(responsabil_sort[::-1])
 
-    elif option == 7:
+    elif opt == 7:
         categorie_sort = []
         for item in all_items:
             aux = item[1]
@@ -186,7 +172,7 @@ def sortare_date():
         categorie_sort.sort()
         print(categorie_sort)
 
-    elif option == 8:
+    elif opt == 8:
         categorie_sort = []
         for item in all_items:
             aux = item[1]
@@ -195,73 +181,78 @@ def sortare_date():
         print(categorie_sort[::-1])
 
 
+def filtrare_date():
+    return
+
+
+def edit_task():
+    print(all_items)
+    alegere = int(input("Ce task doriti sa editati? "))
+    var = list(all_items[alegere])
+    print(f"Taskul pe care l-ati ales este: {var}")
+    print("""Ce doriti sa schimbati?
+    1. Nume task
+    2. Limita
+    3. Nume responsabil
+    4. Categoria""")
+    x = int(input("Alegere: "))  # 2 - limita
+    if x == 1:
+        y = input("Introduceti un nume de task nou: ")
+        var.insert(x, y)
+    if x == 2:
+        y = input("Introduceti o limita noua: ")
+        var.insert(x, y)
+    if x == 3:
+        y = input("Introduceti un responsabil nou: ")
+        var.insert(x, y)
+    if x == 4:
+        print(f"Categorii existente: {all_categories}")
+        y = input("Introduceti o categorie: ")
+        var.insert(x, y)
+        while y not in all_categories:
+            y = input("Introduceti o categorie: ")
+
+
 def delete_task():
-    alegere = str(input("Ce task doriti sa stergeti?"))
-    print(f"Lista: {all_items}")
-    for item in all_items:
-        if alegere in item[0]:
-            if item[0] == alegere:
-                all_items.pop(item)
-
-    return all_items
+    print(all_items)
+    alegere = int(input("Ce task doriti sa stergeti? "))
+    all_items.pop(alegere)
+    print(f"Lista task-uri actualizata: {all_items}")
 
 
-def choice(choicex):
-    if choicex == 1:
-        return list_date()
-    elif choicex == 2:
-        return sortare_date()
-    elif choicex == 3:
-        return
-    elif choicex == 4:
-        return
-    elif choicex == 5:
-        return
-    elif choicex == 6:
-        return delete_task()
-    return False
+# def choice():
+#     # add_category()
+#     # add_tasks()
+#     meniu()
+#     if option == 1:
+#         return list_date()
+#     elif option == 2:
+#         return sortare_date()
+#     elif option == 3:
+#         return filtrare_date()
+#     elif option == 4:
+#         return add_tasks()
+#     elif option == 5:
+#         return edit_task()
+#     elif option == 6:
+#         return delete_task()
 
 
-
-
-# def options():
-#     # print("1. Listare date")    -   listare_date()
-#     # print("2. Sortare")         -   sortare_date()
-#     # print("3. Filtrare date")
-#     # print("4. Adaugare task nou")
-#     # print("5. Editare")
-#     # print("6. Sterge un task")
-#
-#     print("Meniu: ")
-#     list_options = [
-#         '1. Listare date\n',
-#         '2. Sortare\n',
-#         '3. Filtrare date\n',
-#         '4. Adaugare task nou\n',
-#         '5. Editare\n',
-#         '6. Stergere'
-#     ]
-#
-#     option1 = print(list_options)
-#     option = input("Introdu o optiune: ")
-#     # while option != 0:
-#     if option in range(1, 7):
-#         return True
-#     else:
-#         option = int(input("Introdu o optiune valida: "))
-#
-#     item = [task, limita, responsabil, category]
-#     # tabel_list = pd.DataFrame(item)
-#
-#     if list_options == '1':
-#         # tabel_list.sort_values(item)
-#         print(tabel_list)
-
-
-# def meniu():
-#     global list_options
-#     if list_options == 1:
-
-# add_category()
-# add_list()
-# options()
+if __name__ == '__main__':
+    add_category()
+    add_tasks()
+    meniu()
+    option = int(input("Alegere: "))
+    choice(option)
+    if option == 1:
+        list_date()
+    elif option == 2:
+        sortare_date()
+    elif option == 3:
+        filtrare_date()
+    elif option == 4:
+        add_tasks()
+    elif option == 5:
+        edit_task()
+    elif option == 6:
+        delete_task()
