@@ -72,7 +72,7 @@ print(CatalogPrajituri.sortare_pret())
 print("\n")
 print(CatalogPrajituri.sortare_gramaj())
 
-Codrin Florescu  8:18 PM
+
 from operator import itemgetter
 
 class Catalog_Prajituri:
