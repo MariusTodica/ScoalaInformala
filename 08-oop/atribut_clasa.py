@@ -37,7 +37,10 @@ fix_2 = TelefonFix('031 66 33 88')
 mobil = TelefonMobil('0741 45 67 89')
 print(f"Numarul total de dispozitive fixe este {TelefonFix.last_sn}")
 print(f"Numarul total de dispozitive mobile este {TelefonMobil.last_sn}")
-print(f"Numarul total de dispozitive este {Telefon.counter}")class Telefon:
+print(f"Numarul total de dispozitive este {Telefon.counter}")
+
+
+class Telefon:
 
     counter = 0
 
