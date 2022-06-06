@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Meruem's Shop</title>
+{% endblock %}
+
+{% block content %}
+<h1 align="center">
+    {{ title }}
+</h1>
+<h1 align="center">
+    <img src="{% static 'images/phone_case.jpg' %}" class="rounded-circle" alt="Phone Case" width="200"/>
+</h1>
+<div>
+{% if request.user.is_authenticated %}
+    <p align="center">Hi, welcome to our page!</p>
+    <p align="center">If you are trying to find a case for your phone you can take a look <a
+            href="http://127.0.0.1:8000/cases/" id="link">here.</a></p>
+{% else %}
+    <p align="center">Hi, welcome to our page!</p>
+    <p align="center">If you are new, please create an account by pressing <a href="http://127.0.0.1:8000/users/register" id="link">here.</a></p>
+{% endif %}
+</div>
+{% endblock %}

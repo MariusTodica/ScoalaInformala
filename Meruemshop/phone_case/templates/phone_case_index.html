@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.fa {
+  padding: 10px;
+  font-size: 19px;
+  width: 60px;
+  text-align: center;
+  text-decoration: none;
+  margin: 1px 1px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+</style>
+</head>
+<body>
+<div>
+    <a href="{% url 'phone_case:adauga' %}">Add new phone case</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Index</th>
+                <th>Name</th>
+                <th>Material</th>
+                <th>Color</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in case_list %}
+            <tr>
+                <td>{{ forloop.counter0|add:page_obj.start_index }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.material }}</td>
+                <td>{{ item.color }}</td>
+                <td align="center"><img src="{{ item.image.url }}"></td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.stock }}</td>
+                <td><a class="btn btn-info" href="{% url 'phone_case:modifica' item.id %}">Update Phone Case</a>
+                    <a class="btn btn-danger" href="{% url 'phone_case:dezactiveaza' item.id %}">Delete Phone Case</a>
+                    <a class="btn btn-success" href="{% url 'phone_case:buy' item.id %}">Buy Phone Case</a>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if is_paginated %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li><a class="btn" href="?page={{page_obj.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                <li class="disabled btn"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <li class="active btn btn-info"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a class="btn" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li><a class="btn" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled btn"><span>&raquo;</span></li>
+            {% endif %}
+            <p class="allign-right">Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ page_obj.paginator.count }}</p>
+        </ul>
+    {% endif %}
+</div>
+</body>
+{% endblock %}
